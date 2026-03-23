@@ -393,6 +393,7 @@ const i18n = {
     stack_title:"Tech Stack", stack_games:"Videojuegos", stack_parallel:"Paralelización", stack_hw:"Hardware",
     footer:"Hecho con HTML · GitHub Pages", btn_repo:"Ver Repo", btn_demo:"Demo",
     coming_soon:"Repo próximamente", placeholder:"GIF próximamente",
+    btn_docs:"Documentación",
     cat_games:"Videojuegos", cat_data:"Paralelización", cat_hw:"Hardware",
   },
   en: {
@@ -406,6 +407,7 @@ const i18n = {
     stack_title:"Tech Stack", stack_games:"Game Development", stack_parallel:"Parallelization", stack_hw:"Hardware",
     footer:"Built with HTML · GitHub Pages", btn_repo:"View Repo", btn_demo:"Demo",
     coming_soon:"Repo coming soon", placeholder:"GIF coming soon",
+    btn_docs:"Docs",
     cat_games:"Games", cat_data:"Parallelization", cat_hw:"Hardware",
   }
 };
@@ -431,6 +433,7 @@ const projects = {
       tech:["Unity","C#","Quaternions","Gyroscope","iOS"],
       repo:"https://github.com/TERAlabTECH/TERATech/tree/cochesEspacialesConTodo/CochesEspaciales",
       demo:null,
+      docs:null, // ← agrega link de Google Drive cuando tengas documentación
       // media acepta un string o un array: ["assets/coches1.gif","assets/coches2.gif"]
       media:null,
     },
@@ -444,6 +447,7 @@ const projects = {
       tech:["Unity","C#","Blender","FL Studio","Audio"],
       repo:"https://github.com/TERAlabTECH/TERATech/tree/MusicBOX/MusicBox",
       demo:null,
+      docs:null, // ← agrega link de Google Drive cuando tengas documentación
       // media acepta un string o un array: ["assets/musicbox1.gif","assets/musicbox2.gif"]
       media:null,
     },
@@ -457,6 +461,7 @@ const projects = {
       tech:["Unity","C#","AR Foundation","Blender"],
       repo:"https://github.com/TERAlabTECH/TERATechAR/tree/main/Planetas",
       demo:null,
+      docs:null, // ← agrega link de Google Drive cuando tengas documentación
       // media acepta un string o un array: ["assets/planetas1.gif","assets/planetas2.gif"]
       media:null,
     },
@@ -471,7 +476,7 @@ const projects = {
       },
       tech:["C++","MPI","Python","tkinter","Distributed Computing"],
       repo:"https://github.com/GerardoMoguel/ParralelWordCounter_MPI",
-      demo:null, media:null,
+      demo:null, docs:null, media:null,
     },
     {
       id:"kmeans", cat:"data",
@@ -482,7 +487,7 @@ const projects = {
       },
       tech:["C++","OpenMP","K-Means","Parallel Computing"],
       repo:"https://github.com/GerardoMoguel/K_Means",
-      demo:null, media:null,
+      demo:null, docs:null, media:null,
     },
   ],
   hw: [
@@ -494,7 +499,7 @@ const projects = {
         en:"Design and implementation of a functional computer from scratch using VHDL in Quartus, physically wired on a protoboard."
       },
       tech:["VHDL","Quartus","Digital Logic","Protoboard"],
-      repo:null, demo:null, media:null, // ← agrega repo cuando subas los archivos
+      repo:null, demo:null, docs:null, media:null, // ← agrega repo cuando subas los archivos
     },
   ],
 };
@@ -593,12 +598,17 @@ function openModal(p) {
     a.className='btn btn-primary'; a.href=p.repo; a.target='_blank'; a.textContent=t.btn_repo;
     links.appendChild(a);
   }
+  if (p.docs) {
+    const a = document.createElement('a');
+    a.className='btn btn-ghost'; a.href=p.docs; a.target='_blank'; a.textContent=t.btn_docs;
+    links.appendChild(a);
+  }
   if (p.demo) {
     const a = document.createElement('a');
     a.className='btn btn-ghost'; a.href=p.demo; a.target='_blank'; a.textContent=t.btn_demo;
     links.appendChild(a);
   }
-  if (!p.repo && !p.demo) {
+  if (!p.repo && !p.demo && !p.docs) {
     const s = document.createElement('span');
     s.style.cssText='font-size:.8rem;color:var(--muted)'; s.textContent=t.coming_soon;
     links.appendChild(s);
