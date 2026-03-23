@@ -144,7 +144,7 @@
     .modal-media .ph-big { font-size:3.5rem; opacity:0.2; }
 
     /* ── CAROUSEL ── */
-    .carousel { position:relative; width:100%; height:100%; }
+    .carousel { position:relative; width:100%; height:100%; touch-action: pan-y; }
     .carousel-track {
       display:flex; width:100%; height:100%;
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
@@ -245,7 +245,54 @@
     @media (max-width:500px) {
       nav { padding:0 1.2rem; }
       .nav-links { display:none; }
-      .hero, .tabs-container { padding-left:1.2rem; padding-right:1.2rem; }
+
+      .hero { padding: 3.5rem 1.2rem 2.5rem; }
+      .hero p { font-size: 0.95rem; }
+
+      .tabs-container { padding: 0 1.2rem 4rem; }
+
+      /* tab row scrolls horizontally instead of wrapping */
+      .tab-row {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .tab-row::-webkit-scrollbar { display: none; }
+      .tab-btn { font-size: 0.78rem; padding: 0.4rem 0.9rem; }
+
+      /* single column grid */
+      .grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+      /* modal takes full screen on iPhone */
+      .backdrop { padding: 0; align-items: flex-end; }
+      .modal {
+        max-width: 100%;
+        border-radius: 22px 22px 0 0;
+        max-height: 92vh;
+      }
+      .modal-media { border-radius: 22px 22px 0 0; }
+      .modal-body { padding: 1.2rem 1.2rem 2rem; }
+      .modal-title { font-size: 1.5rem; }
+
+      /* bio stacks vertically — photo first */
+      .bio {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .bio-right { order: -1; }
+      .bio-photo {
+        width: 50%;
+        aspect-ratio: 1/1;
+        margin: 0 auto 1.5rem;
+      }
+
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.2rem; }
+    }
+
+    /* slightly larger phones (iPhone Plus / Pro Max) */
+    @media (min-width:390px) and (max-width:500px) {
+      .grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -569,6 +616,16 @@ function openModal(p) {
     document.querySelectorAll('.dot').forEach(d => {
       d.addEventListener('click', () => goToSlide(+d.dataset.i));
     });
+    /* touch swipe */
+    const track = document.getElementById('cTrack');
+    if (track && imgs.length > 1) {
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goToSlide(carouselIndex + (diff > 0 ? 1 : -1));
+      }, { passive: true });
+    }
   } else {
     media.innerHTML = `<div class="ph-big">${catIcon[p.cat]}</div>`;
   }
