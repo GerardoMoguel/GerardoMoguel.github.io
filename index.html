@@ -86,6 +86,25 @@
     /* ── PANEL ── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; animation: fadeUp 0.35s cubic-bezier(0.16,1,0.3,1); }
+
+    .panel-intro {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-intro h2 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.5rem; font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text); margin-bottom: 0.4rem;
+    }
+    .panel-intro p {
+      font-size: 0.82rem; font-weight: 300;
+      line-height: 1.7; color: var(--sub);
+    }
+    .panel-intro em {
+      font-style: normal; font-weight: 500; color: var(--accent);
+    }
     @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
     /* ── GRID ── */
@@ -203,6 +222,12 @@
     .btn-primary:hover { background:#0077ed; }
     .btn-ghost { background:var(--bg); color:var(--text); }
     .btn-ghost:hover { background:#e5e5ea; }
+    .btn-cv {
+      background: var(--text); color: var(--bg);
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .btn-cv:hover { background: #3a3a3a; }
+    .btn-cv svg { width:13px; height:13px; flex-shrink:0; }
 
     .modal-close-wrap { display:flex; justify-content:flex-end; padding:0.75rem 0.75rem 0; }
     .modal-close {
@@ -329,9 +354,27 @@
     <button class="tab-btn" data-tab="hw"    data-i18n="tab_hw">🔧 Hardware</button>
   </div>
 
-  <div class="tab-panel" id="panel-games"><div class="grid" id="grid-games"></div></div>
-  <div class="tab-panel" id="panel-data"><div class="grid" id="grid-data"></div></div>
-  <div class="tab-panel" id="panel-hw"><div class="grid" id="grid-hw"></div></div>
+  <div class="tab-panel" id="panel-games">
+    <div class="panel-intro">
+      <h2 data-i18n="games_title">Game Projects</h2>
+      <p data-i18n="games_desc">Click on any project to learn more. Hit <em data-i18n="games_cta">Demo</em> to watch it in action.</p>
+    </div>
+    <div class="grid" id="grid-games"></div>
+  </div>
+  <div class="tab-panel" id="panel-data">
+    <div class="panel-intro">
+      <h2 data-i18n="data_title">Parallelization Projects</h2>
+      <p data-i18n="data_desc">Click on any project for details. Check the <em data-i18n="data_cta">Repo</em> to read the full documentation.</p>
+    </div>
+    <div class="grid" id="grid-data"></div>
+  </div>
+  <div class="tab-panel" id="panel-hw">
+    <div class="panel-intro">
+      <h2 data-i18n="hw_title">Hardware Projects</h2>
+      <p data-i18n="hw_desc">Low-level design built from scratch. Check the <em data-i18n="hw_cta">Repo</em> to explore the source files.</p>
+    </div>
+    <div class="grid" id="grid-hw"></div>
+  </div>
 
   <div class="tab-panel active" id="panel-bio">
     <div class="bio">
@@ -343,6 +386,10 @@
         <div class="bio-links">
           <a class="btn btn-primary" href="https://github.com/GerardoMoguel" target="_blank">GitHub</a>
           <a class="btn btn-ghost" href="https://www.linkedin.com/in/gerardomoguel/" target="_blank">LinkedIn</a>
+          <a class="btn btn-cv" href="assets/cv.pdf" target="_blank" data-i18n-cv="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            <span data-i18n="btn_cv">Curriculum</span>
+          </a>
         </div>
       </div>
       <div class="bio-right">
@@ -397,7 +444,16 @@ const i18n = {
     bio_p2:"Mis intereses van desde videojuegos y realidad aumentada, hasta paralelización de algoritmos y diseño de hardware. Cada proyecto intenta empujar un límite diferente.",
     bio_p3:"Busco oportunidades donde pueda crecer, aportar, y seguir haciendo proyectos que me apasionen.",
     stack_title:"Tech Stack", stack_games:"Videojuegos", stack_parallel:"Paralelización", stack_hw:"Hardware",
-    footer:"Hecho con HTML · GitHub Pages", btn_repo:"Ver Repo", btn_demo:"Demo",
+    footer:"Hecho con HTML · GitHub Pages", btn_repo:"Ver Repo", btn_demo:"Demo", btn_cv:"Curriculum",
+    games_title:"Proyectos de Juegos",
+    games_desc:"Dale click a cualquier proyecto para más info. Presiona ",
+    games_cta:"Demo",
+    data_title:"Proyectos de Paralelización",
+    data_desc:"Dale click a cualquier proyecto para más info. Revisa el ",
+    data_cta:"Repo",
+    hw_title:"Proyectos de Hardware",
+    hw_desc:"Diseño de bajo nivel construido desde cero. Explora los archivos en el ",
+    hw_cta:"Repo",
     coming_soon:"Repo próximamente", placeholder:"GIF próximamente",
     btn_docs:"Documentación",
     cat_games:"Videojuegos", cat_data:"Paralelización", cat_hw:"Hardware",
@@ -411,7 +467,16 @@ const i18n = {
     bio_p2:"My interests span from game development and augmented reality, to algorithm parallelization and hardware design. Every project tries to push a different limit.",
     bio_p3:"I'm looking for opportunities where I can grow, contribute, and keep building things I'm passionate about.",
     stack_title:"Tech Stack", stack_games:"Game Development", stack_parallel:"Parallelization", stack_hw:"Hardware",
-    footer:"Built with HTML · GitHub Pages", btn_repo:"View Repo", btn_demo:"Demo",
+    footer:"Built with HTML · GitHub Pages", btn_repo:"View Repo", btn_demo:"Demo", btn_cv:"Resume",
+    games_title:"Game Projects",
+    games_desc:"Click on any project to learn more. Hit ",
+    games_cta:"Demo",
+    data_title:"Parallelization Projects",
+    data_desc:"Click on any project for details. Check the ",
+    data_cta:"Repo",
+    hw_title:"Hardware Projects",
+    hw_desc:"Low-level design built from scratch. Explore the source files in the ",
+    hw_cta:"Repo",
     coming_soon:"Repo coming soon", placeholder:"GIF coming soon",
     btn_docs:"Docs",
     cat_games:"Games", cat_data:"Parallelization", cat_hw:"Hardware",
@@ -604,9 +669,11 @@ function openModal(p) {
 
   const links = document.getElementById('modalLinks');
   links.innerHTML = '';
+  const isGame = p.cat === 'games';
   if (p.repo) {
     const a = document.createElement('a');
-    a.className='btn btn-primary'; a.href=p.repo; a.target='_blank'; a.textContent=t.btn_repo;
+    a.className = isGame ? 'btn btn-ghost' : 'btn btn-primary';
+    a.href=p.repo; a.target='_blank'; a.textContent=t.btn_repo;
     links.appendChild(a);
   }
   if (p.docs) {
@@ -616,7 +683,8 @@ function openModal(p) {
   }
   if (p.demo) {
     const a = document.createElement('a');
-    a.className='btn btn-ghost'; a.href=p.demo; a.target='_blank'; a.textContent=t.btn_demo;
+    a.className = isGame ? 'btn btn-primary' : 'btn btn-ghost';
+    a.href=p.demo; a.target='_blank'; a.textContent=t.btn_demo;
     links.appendChild(a);
   }
   if (!p.repo && !p.demo && !p.docs) {
